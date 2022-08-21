@@ -13,7 +13,6 @@ def index(request):
 def settings(request):
     return render(request, 'setting.html')
 
-
 def signup(request):
     
     
@@ -30,6 +29,7 @@ def signup(request):
             if User.objects.filter(email=email).exists():
                 messages.info(request,'Email already exists')
                 return redirect('signup')
+            
             elif User.objects.filter(username=username).exists():
                 messages.info(request,'Username already exists')
                 return redirect('signup')
