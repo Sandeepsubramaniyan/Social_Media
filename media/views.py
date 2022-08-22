@@ -7,7 +7,9 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 @login_required(login_url='signin')
 def index(request):
-    return render(request,'index.html')
+    user_object = User.objects.get(username=request.user.username)
+    user_profile = Profile.objects.get(user=user_object)
+    return render(request,'index.html',{'user_profile':user_profile})
 
 @login_required(login_url='signin')
 def upload(request):
@@ -51,7 +53,7 @@ def settings(request):
             user_profile.location = location
             user_profile.save()
             
-        return redirect('settings')
+        return redirect('/') 
         
     return render(request, 'setting.html',{'user_profile':user_profile})
 
