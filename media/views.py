@@ -1,7 +1,7 @@
 from django.shortcuts import render , redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
-from .models import Profile, Post
+from .models import LikePost, Profile, Post
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -39,7 +39,7 @@ def like_post(request):
     
     post = Post.objects.get(id=post_id) #getting the Posts id 
     
-    
+    like_filter = LikePost.objects.filter(post_id=post_id,username=username).first()
     
     
 
