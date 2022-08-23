@@ -30,7 +30,18 @@ def upload(request):
         return redirect('/')
     else:
         return redirect('/')
- 
+    
+@login_required(login_url='signin')
+def like_post(request):
+    
+    username = request.user.username    #showscurrently loggedin user 
+    post_id = request.GET.get('post_id') #sending post_id to template
+    
+    post = Post.objects.get(id=post_id) #getting the Posts id 
+    
+    
+    
+    
 
 @login_required(login_url='signin')
 def settings(request):
