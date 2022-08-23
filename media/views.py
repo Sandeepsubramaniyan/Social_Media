@@ -11,7 +11,7 @@ def index(request):
     user_profile = Profile.objects.get(user=user_object)
     
     
-    posts = Post.objects.all() #To view all posts in home
+    posts = Post.objects.order_by('-created_at')  #To view all posts in home
     return render(request,'index.html',{'user_profile':user_profile,'posts':posts})
 
 @login_required(login_url='signin')
@@ -30,7 +30,7 @@ def upload(request):
         return redirect('/')
     else:
         return redirect('/')
-    
+ 
 
 @login_required(login_url='signin')
 def settings(request):
@@ -63,8 +63,6 @@ def settings(request):
     return render(request, 'setting.html',{'user_profile':user_profile})
 
 def signup(request):
-    
-    
 
     # created POST method 
     if request.method == "POST":
