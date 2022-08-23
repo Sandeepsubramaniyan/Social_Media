@@ -41,6 +41,10 @@ def like_post(request):
     
     like_filter = LikePost.objects.filter(post_id=post_id,username=username).first()
     
+    if like_filter == None:
+        new_like = LikePost.objects.create(post_id=post_id,username=username)
+        new_like.save()
+    
     
 
 @login_required(login_url='signin')
