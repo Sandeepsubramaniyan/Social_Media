@@ -47,6 +47,12 @@ def like_post(request):
         post.no_of_likes = post.no_of_likes + 1
         post.save()
         return redirect('/')
+    #if user already likes the post decrement the like
+    else:
+        like_filter.delete()
+        post.no_of_likes = post.no_of_likes-1
+        post.save()
+        return redirect('/')
     
     
 
