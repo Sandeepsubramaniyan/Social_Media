@@ -55,6 +55,10 @@ def like_post(request):
         post.save()
         return redirect('/')
  
+@login_required(login_url='signin')
+def follow(request):
+    pass
+ 
 @login_required(login_url='signin') 
 def profile(request,pk):    
     user_object = User.objects.get(username=pk)
