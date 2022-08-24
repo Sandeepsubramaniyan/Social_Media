@@ -2,7 +2,7 @@ from re import M
 from django.shortcuts import render , redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
-from .models import LikePost, Profile, Post
+from .models import FollowerCount, LikePost, Profile, Post
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -57,8 +57,22 @@ def like_post(request):
  
 @login_required(login_url='signin')
 def follow(request):
-    pass
- 
+    
+    if request.method == "POST":
+        follower = request.POST['follower']
+        user = request.POST['user']
+        
+        #if a user wants to unfollow other user
+        if FollowerCount.objects.filter(follower=follower,user=user).first():
+            delete_follower = FollowerCount.objects.get(follower=follower,user=user)
+            delete_follower.delete() 
+            
+    else:
+        return redirect('/')
+        
+
+
+
 @login_required(login_url='signin') 
 def profile(request,pk):    
     user_object = User.objects.get(username=pk)
