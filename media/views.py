@@ -66,13 +66,13 @@ def follow(request):
         if FollowerCount.objects.filter(follower=follower,user=user).first():
             delete_follower = FollowerCount.objects.get(follower=follower,user=user)
             delete_follower.delete()
-            return redirect('/profile'+user) 
+            return redirect('/profile/'+user) 
         
         #unfollowed user can follow other user
         else:
             new_follower = FollowerCount.objects.create(follower=follower,user=user)
             new_follower.save()
-            return redirect('/profile'+user)     
+            return redirect('/profile/'+user)     
     else:
         return redirect('/')
         
