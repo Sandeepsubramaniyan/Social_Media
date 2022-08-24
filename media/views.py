@@ -72,9 +72,7 @@ def follow(request):
         else:
             new_follower = FollowerCount.objects.create(follower=follower,user=user)
             new_follower.save()
-            return redirect('/profile'+user)
-            
-            
+            return redirect('/profile'+user)     
     else:
         return redirect('/')
         
