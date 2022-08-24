@@ -65,7 +65,9 @@ def follow(request):
         #if a user wants to unfollow other user
         if FollowerCount.objects.filter(follower=follower,user=user).first():
             delete_follower = FollowerCount.objects.get(follower=follower,user=user)
-            delete_follower.delete() 
+            delete_follower.delete()
+            return redirect('/profile'+user) 
+            
             
     else:
         return redirect('/')
