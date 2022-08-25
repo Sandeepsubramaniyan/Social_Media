@@ -39,7 +39,7 @@ def index(request):
         user_following_all.append(user_list)
         
     #creating suggestions for not followed user     
-    new_suggestions_list = [x for x in list(all_users) if (x not in list(user_following_all()))]
+    new_suggestions_list = [x for x in list(all_users) if (x not in list(user_following_all))]
     #identifying current user
     current_user = User.objects.filter(username=request.user.username)
     #excluding the logged in user from showing on suggestions
