@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{% static 'css/color.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
 
+	
 </head>
 <body>
 <!--<div class="se-pre-con"></div>-->
@@ -25,18 +26,17 @@
 	
 	</div>
 	
-	<section>
-			<div class="feature-photo">
+	<section>		
+			<div class="feature-photo">				
 				<figure><img src="{% static 'images/resources/timeline-1.jpg' %}" alt=""></figure>
-				
-				<form>	
-					<div class="add-btn">
-					<span style="color: white; font-size: 27px; margin-right: 520px;"><b><u><a href="/">Home</a></u></b></span>
-					</div>	
-				</form>		
+						
+					
 				<form action="/follow" method="POST">
 					{% csrf_token %}
 					<div class="add-btn">
+						<div class="add-btn">
+		<span style="color: white; font-size: 27px; margin-right: 800px;"><b><u><a href="/">Home</a></u></b></span>
+	</div>
 					{% if user_post_length == 0 %}
 					<span style="color: white; font-size: 27px;"><b> No Post</b></span>
 					{% elif user_post_length == 1 %}
@@ -44,9 +44,11 @@
 					{% else %}
 					<span style="color: white; font-size: 27px;"><b>{{user_post_length}} Posts</b></span>
 					{% endif %}
+
 					
-					<span style="color: white; font-size: 27px;"><b>1.7m followers</b></span>
-					<span style="color: white; font-size: 27px;"><b>3.5k following</b></span>
+					
+					<span style="color: white; font-size: 27px;"><b>{{user_followers}} Follower</b></span>
+					<span style="color: white; font-size: 27px;"><b>{{user_following}} Following</b></span>
 					
 					<input type="hidden" value="{{user.username}}" name="follower" />
 					<input type="hidden" value="{{user_object.username}}" name="user" />
@@ -56,7 +58,7 @@
 					{% else %}
 					<a href="" title="" data-ripple=""><button type="submit" style="background-color: #ffc0cb; border: #ffc0cb;">{{button_text}}</button></a>
 					{% endif %}
-					
+						
 					</div>
 				</form>
 
