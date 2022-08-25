@@ -4,16 +4,35 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from .models import FollowerCount, LikePost, Profile, Post
 from django.contrib.auth.decorators import login_required
-
+from itertools import chain
 # Create your views here.
 @login_required(login_url='signin')
 def index(request):
     user_object = User.objects.get(username=request.user.username)    
     user_profile = Profile.objects.get(user=user_object)   
     
+    user_following_list = []
+    feed = []
+    
+    user_following = FollowerCount.objects.filter(follower=request.user.username)
+    
+    #getting the followed users
+    for users in user_following:
+        user_following_list.append(users.user)
+     
+    #showing posts for if only followed particular user   
+    for usernames in user_following_list:
+        feed_lists = Post.objects.filter(user=usernames)
+        feed.append(feed_lists)
+        
+        
+    #shows all posts one after the other    
+    feed_list = list(chain(*feed))
+        
+    
     
     posts = Post.objects.order_by('-created_at')  #To view all posts in home
-    return render(request,'index.html',{'user_profile':user_profile,'posts':posts})
+    return render(request,'index.html',{'user_profile':user_profile,'posts':feed_list})
 
 @login_required(login_url='signin')
 def upload(request):
