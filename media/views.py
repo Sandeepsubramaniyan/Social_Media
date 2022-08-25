@@ -29,9 +29,7 @@ def index(request):
     #shows all posts one after the other    
     feed_list = list(chain(*feed))
         
-    
-    
-    posts = Post.objects.order_by('-created_at')  #To view all posts in home
+    #To view all posts in home
     return render(request,'index.html',{'user_profile':user_profile,'posts':feed_list})
 
 @login_required(login_url='signin')
