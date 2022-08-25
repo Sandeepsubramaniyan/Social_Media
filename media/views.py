@@ -86,6 +86,15 @@ def profile(request,pk):
     user_posts = Post.objects.filter(user=pk) #filtering posts for particular user
     user_post_length = len(user_posts) #total number of posts to be displayed
 
+    follower = request.user.username
+    user = pk
+    
+    
+    if FollowerCount.object.filter(follower=follower,user=user).first():
+        button_text = 'Unfollow' #if user follows other user then user can unfollow
+    else:
+        button_text = 'Follow'  #if user not follows other user then user can follow
+    
     
     context = {
         
@@ -93,6 +102,7 @@ def profile(request,pk):
         'user_profile' : user_profile,            
         'user_posts' : user_posts,
         'user_post_length' : user_post_length,
+        'button_text' : button_text
     }
     
     return render(request,'profile.html',context)   
