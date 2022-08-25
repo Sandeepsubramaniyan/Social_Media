@@ -5,6 +5,7 @@ from django.contrib import messages
 from .models import FollowerCount, LikePost, Profile, Post
 from django.contrib.auth.decorators import login_required
 from itertools import chain
+
 # Create your views here.
 @login_required(login_url='signin')
 def index(request):
@@ -29,7 +30,22 @@ def index(request):
     #shows all posts one after the other    
     feed_list = list(chain(*feed))
         
-    #To view all posts in home
+    #user suggestion
+    all_users = User.objects.all()
+    user_following_all = []
+    
+    for user in user_following:
+        user_list = User.objects.get(username=user.user)
+        user_following_all.append(user_list)
+        
+    #creating suggestions for not followed user     
+    new_suggestions_list = [x for x in list(all_users) if (x not in list(user_following_all()))]
+    #identifying current user
+    current_user = User.objects.filter(username=request.user.username)
+    #excluding the logged in user from showing on suggestions
+    final_suggestions_list = [x for x in list(new_suggestions_list) if (x not in list(current_user))]
+    
+    
     return render(request,'index.html',{'user_profile':user_profile,'posts':feed_list})
 
 @login_required(login_url='signin')
