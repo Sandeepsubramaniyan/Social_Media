@@ -90,7 +90,7 @@ def profile(request,pk):
     user = pk
     
     
-    if FollowerCount.object.filter(follower=follower,user=user).first():
+    if FollowerCount.objects.filter(follower=follower,user=user).first():
         button_text = 'Unfollow' #if user follows other user then user can unfollow
     else:
         button_text = 'Follow'  #if user not follows other user then user can follow
