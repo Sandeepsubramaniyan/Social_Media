@@ -95,14 +95,22 @@ def profile(request,pk):
     else:
         button_text = 'Follow'  #if user not follows other user then user can follow
     
-    
+    #finding how many users have followed 
+    user_followers = len(FollowerCount.objects.filter(user=pk))
+        
+    #finding how many users the current profile user has followed  
+    user_following = len(FollowerCount.objects.filter(follower=pk)) 
+        
     context = {
         
         'user_object' : user_object,
         'user_profile' : user_profile,            
         'user_posts' : user_posts,
         'user_post_length' : user_post_length,
-        'button_text' : button_text
+        'button_text' : button_text,
+        'user_followers' : user_followers,
+        'user_following' : user_following,
+        
     }
     
     return render(request,'profile.html',context)   
